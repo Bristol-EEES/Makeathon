@@ -1,147 +1,177 @@
+
 # BEEES Makeathon
 
 Welcome to the official **BEEES Makeathon** repository.
 
-This repository contains starter code, electronics documentation, guides, and example projects designed to help participants become familiar with the hardware and programming concepts used during the Makeathon.
+This repository contains electronics documentation, setup guides, technical explanations, wiring references, and other resources designed to help participants understand the hardware used during the Makeathon.
 
-The goal of these resources is **not to provide a complete competition solution**, but to give participants enough background to understand the basic structure of a robot and start experimenting before the event.
+The aim of these resources is to help you understand **how the components work, how they connect together, and how they can be used when building your robot**.
+
+This repository does **not** provide a complete competition solution or finished line-following robot code. Designing and implementing your team's robot is part of the Makeathon challenge.
 
 ---
 
 ## What's in this Repository?
 
-The repository will contain resources covering areas such as:
+Resources will cover areas such as:
 
-- Example line-following robot code
-- Basic robot control
-- Motor control
-- Sensor interfacing
-- Electronics and wiring documentation
-- Microcontroller programming
-- Example circuits
-- Hardware setup guides
-- Troubleshooting tips
+- Raspberry Pi Pico setup and usage
+- Electronic components used during the Makeathon
+- Motors and motor drivers
+- Line sensors
+- Power systems
+- Wiring and connections
+- GPIO, PWM and analogue/digital signals
+- Basic robot control concepts
+- Hardware setup
+- Component datasheets and specifications
+- Troubleshooting
 - Useful reference material
 
 Additional resources may be added as the Makeathon approaches.
 
 ---
 
-## Example Line-Following Robot
+## Getting Started
 
-A simple **line-following robot example** is included to demonstrate how sensor readings can be used to control a robot's motors.
+Before the Makeathon, we recommend becoming familiar with:
 
-The example is intended to introduce concepts such as:
+1. The Raspberry Pi Pico and its GPIO pins — start with the [Pico setup guide](guides/pico_setup.md)
+2. The electronic components provided for the challenge
+3. How the motors and motor driver work
+4. How the line sensors detect the track
+5. How the components should be wired together
+6. Basic concepts such as PWM, digital inputs and analogue signals
+7. The general control process used by a line-following robot
 
-1. Reading sensors
-2. Processing sensor values
-3. Making a control decision
-4. Adjusting motor speeds
-5. Repeating the process continuously
+You do **not** need to have built a line-following robot before the event.
 
-A typical control loop might look something like:
+The purpose of this documentation is to give you the background needed to understand the hardware and start developing your own solution during the Makeathon.
+
+---
+
+## How a Line-Following Robot Works
+
+At a high level, a line-following robot repeatedly performs a simple process:
 
 ```text
 Read Sensors
      ↓
-Determine Position of Line
+Determine Where the Line Is
      ↓
-Calculate Required Correction
+Decide How the Robot Should Respond
      ↓
-Adjust Left and Right Motor Speeds
+Control the Motors
      ↓
 Repeat
 ```
 
-The provided code should be treated as a **reference implementation**. Participants are encouraged to modify, experiment with, and improve the behaviour of their own robots.
+The sensors provide information about the robot's position relative to the line.
+
+Your program must then use this information to decide how the motors should respond.
+
+Exactly **how you implement this behaviour is up to your team**.
 
 ---
 
 ## Electronics Documentation
 
-The repository also contains electronics guides covering the basic hardware used during the Makeathon.
+The electronics documentation explains the hardware provided during the Makeathon.
 
 Topics may include:
 
-- Microcontrollers
-- Motors
+- Raspberry Pi Pico
+- DC motors
 - Motor drivers
 - Line sensors
-- Power systems
-- Breadboards and prototyping
-- Basic circuit design
+- Batteries and power
 - Wiring and connections
-- Digital and analogue signals
+- GPIO
+- PWM
+- Analogue and digital signals
+- Basic electrical concepts
 
-These guides are intended to help participants who may have limited prior experience with electronics.
+For each component, the documentation will aim to explain:
 
----
-
-## Getting Started
-
-Before the Makeathon, we recommend that you:
-
-1. Look through the electronics documentation.
-2. Familiarise yourself with the example line-following code.
-3. Understand how the sensors and motors interact with the microcontroller.
-4. Try modifying parts of the example code.
-5. Make sure you understand the basic robot control loop.
-
-You **do not need to memorise the code**. Focus on understanding what each part of the program is doing.
+- What the component is
+- What it does
+- How it works
+- Important electrical specifications
+- How to connect it
+- How it interacts with the rest of the robot
+- Common problems and troubleshooting steps
 
 ---
 
 ## Repository Structure
 
-The repository may be organised approximately as follows:
+The repository documentation is organised as follows:
 
 ```text
 Makeathon/
 │
-├── examples/
-│   └── line_follower/
-│
 ├── electronics/
-│   ├── sensors/
-│   ├── motors/
-│   ├── motor_drivers/
-│   └── wiring/
+│   └── README.md
+│
+├── wiring/
+│   ├── pico_to_ir_sensors.md
+│   ├── pico_to_l298n.md
+│   ├── motors_to_l298n.md
+│   ├── battery_pack.md
+│   └── full_system_wiring.md
+│
+├── concepts/
+│   ├── gpio.md
+│   ├── pwm.md
+│   ├── digital_inputs.md
+│   ├── motor_direction.md
+│   └── line_following_basics.md
 │
 ├── guides/
+│   ├── pico_setup.md          # Thonny installation and connecting the board
+│   ├── micropython_setup.md   # Understanding and configuring MicroPython
+│   ├── uploading_code.md      # Run, save, and main.py workflow
+│   └── pre_power_check.md
 │
-├── docs/
+├── troubleshooting/
+│   └── README.md
+│
+├── assets/
+│   ├── diagrams/
+│   └── images/
 │
 └── README.md
 ```
 
-The structure may change as additional resources are added.
-
 ---
 
-## A Note for Beginners
+## For Beginners
 
-Don't worry if you have never built a robot before.
+No previous robotics experience is required.
 
-The Makeathon is designed to be a practical learning experience, and the provided resources are intended to help you understand the fundamentals before you begin.
+The Makeathon is intended to be a practical engineering challenge and learning experience.
 
 You are encouraged to:
 
-- Experiment
+- Read through the documentation
 - Ask questions
-- Modify the example code
-- Test different ideas
+- Experiment with the hardware
+- Test your ideas
+- Debug problems
 - Work with your teammates
-- Learn through trial and error
+- Try different approaches
 
-Breaking things, debugging, and redesigning are all part of engineering.
+Understanding why something does not work is often just as useful as getting it working the first time.
 
 ---
 
 ## Important
 
-The example code and documentation in this repository are provided as **learning resources**.
+The resources in this repository are intended to help you **understand the hardware and engineering concepts involved in the challenge**.
 
-They are not intended to be copied directly as a finished Makeathon solution. Teams are encouraged to develop and improve their own designs during the event.
+They are not intended to provide a finished robot or a copy-and-paste competition solution.
+
+Teams are expected to develop and implement their own solution during the Makeathon.
 
 ---
 
