@@ -19,6 +19,8 @@ The [Pico pinout in the electronics guide](../electronics/README.md#raspberry-pi
 
 Download Thonny only from the [official Thonny website](https://thonny.org/). The site presents the current downloads for each operating system, so installer names and screen wording may differ from this guide.
 
+![Thonny](../assets/diagrams/Thonny.png)
+
 ### Windows
 
 1. On the Thonny website, choose the Windows installer that matches your computer. Most participants will need the standard installer for an Intel or AMD computer.

@@ -4,6 +4,8 @@ This page gives a high-level map of the robot. It intentionally uses symbolic la
 
 > Exact GPIO assignments, sensor pinout and voltage, L298N module configuration, motor specifications, and battery chemistry are to be confirmed.
 
+> The final standalone power connection for the Raspberry Pi Pico is still to be confirmed. Follow the final Makeathon wiring diagram once published.
+
 ## Connection table
 
 | From | To | Function |
@@ -39,6 +41,12 @@ Do not infer a power connection from this table where the final design is still 
 ```
 
 Motor current must travel through the battery–motor-driver–motor path, never through Pico GPIO.
+
+## Final Event Wiring Diagram
+
+> A final labelled wiring diagram will be added once the GPIO assignments, sensor electrical requirements, L298N jumper configuration, battery chemistry, and Pico power arrangement have been confirmed.
+
+The conceptual diagram above remains useful for understanding signal and power paths, but it is not a substitute for the final event wiring diagram.
 
 ## Before Powering On
 

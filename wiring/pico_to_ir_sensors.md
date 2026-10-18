@@ -25,4 +25,4 @@ Connect grounds before relying on a signal: without a common ground, the Pico an
 
 VCC is a power input and OUT is a signal output; do not swap them. Verify the sensor's pin order and power requirements before switching on.
 
-Next: [digital inputs](../concepts/digital_inputs.md) · [full-system wiring](full_system_wiring.md) · [pre-power check](../guides/pre_power_check.md) · [electronics guide](../electronics/README.md)
+Next: [calibrate the IR sensors](../guides/ir_sensor_calibration.md) · [digital inputs](../concepts/digital_inputs.md) · [full-system wiring](full_system_wiring.md) · [pre-power check](../guides/pre_power_check.md) · [electronics guide](../electronics/README.md)

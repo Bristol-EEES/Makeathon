@@ -46,6 +46,8 @@ MicroPython refers to the GPIO number, for example `Pin(2)`, rather than the phy
 
 `VSYS` is a Pico system-power input. It can power the Pico when supplied within the board's supported input range. Do not connect the Makeathon battery to it unless the final power design explicitly instructs you to do so.
 
+> The final standalone power connection for the Raspberry Pi Pico is still to be confirmed. Follow the final Makeathon wiring diagram once published.
+
 #### `VBUS`
 
 `VBUS` is the USB-derived 5 V rail present when the Pico is powered through USB. It is a power connection, not a GPIO, and it is not the Pico's 3.3 V logic level. Its use, if any, must follow the confirmed power design.
@@ -106,13 +108,7 @@ Motors draw significant current. **Startup current** is the brief high current n
 
 The motor itself is not controlled directly by Pico code. The software changes control signals connected to the L298N, and the driver switches motor current from the motor supply:
 
-```text
-Pico
-  ↓ control signals
-L298N
-  ↓ motor current
-DC motor
-```
+![L298N to Pico](../assets/diagrams/pico_to_l298n.jpg)
 
 Connecting a DC motor directly to a Pico GPIO can damage the Pico. All motor examples in this guide therefore operate through the motor driver.
 
@@ -138,12 +134,12 @@ It provides two motor channels. Common labels are:
 
 | Pin or terminal | Type | Function |
 |---|---|---|
-| ENA | Control signal | Enables Motor A; can accept PWM for speed control when configured appropriately |
+| ENA | Control signal | Enables Motor A; a fitted enable jumper commonly holds it HIGH, or it can accept PWM for speed control when configured appropriately |
 | IN1 | Control signal | One of Motor A's two direction/braking inputs |
 | IN2 | Control signal | The other Motor A direction/braking input |
 | IN3 | Control signal | One of Motor B's two direction/braking inputs |
 | IN4 | Control signal | The other Motor B direction/braking input |
-| ENB | Control signal | Enables Motor B; can accept PWM for speed control when configured appropriately |
+| ENB | Control signal | Enables Motor B; a fitted enable jumper commonly holds it HIGH, or it can accept PWM for speed control when configured appropriately |
 | OUT1 | Motor output | One motor-current connection for Motor A |
 | OUT2 | Motor output | The other motor-current connection for Motor A |
 | OUT3 | Motor output | One motor-current connection for Motor B |
@@ -153,6 +149,18 @@ It provides two motor channels. Common labels are:
 | 5V terminal | Configuration-dependent power/logic terminal | Its use depends on the module's regulator and jumper arrangement |
 
 When ENA or ENB is HIGH/enabled, its channel can respond to the corresponding IN inputs. PWM on ENA or ENB can repeatedly enable and disable the channel to adjust the drive command. Holding the enable input LOW disables the channel and normally lets the motor coast.
+
+### ENA and ENB jumpers
+
+On many common L298N modules, a small removable jumper links each enable input to the module's logic HIGH supply:
+
+- With the **ENA jumper fitted**, Motor A is continuously enabled. This is equivalent to a 100% enable command, so IN1 and IN2 control its direction or braking.
+- With the **ENB jumper fitted**, Motor B is continuously enabled. This is equivalent to a 100% enable command, so IN3 and IN4 control its direction or braking.
+- To control speed with Pico PWM, the relevant enable jumper is normally removed and that EN pin is connected to a confirmed Pico PWM GPIO.
+
+“100% enable” means that the driver channel is enabled for the whole PWM cycle. It does **not** guarantee that the motor reaches 100% of its advertised speed; battery voltage, L298N voltage loss, load, friction, and the motor itself still matter.
+
+Do not manually short ENA and ENB together or bridge them to an arbitrary power pin. Use only the module's intended enable jumper positions, after confirming that the supplied board matches the reference layout. Switch power off before fitting or removing a jumper.
 
 IN1/IN2 and IN3/IN4 are low-current control signals from the Pico. Their HIGH/LOW combinations select direction or braking. OUT1–OUT4 are different: they carry motor drive current to the motors and must **not** connect to Pico GPIO.
 
@@ -181,6 +189,8 @@ IN1 and IN2 select the direction for Motor A. ENA enables the channel and can al
 - `X` means that the input does not matter in that state.
 - Direction A and Direction B are opposite rotations. Which one moves the robot physically forward depends on motor mounting and the order of the two motor wires.
 - Swapping a motor's two output wires swaps its Direction A and Direction B. Do this only with power off; never reverse the battery leads.
+
+When the common ENA jumper is fitted, ENA is normally held at `1`, so the first four rows apply. Removing that jumper allows a Pico PWM signal to vary how much of each cycle ENA spends at `1`. Confirm this behavior on the exact supplied module before wiring it.
 
 Motor B works in the same way: IN3 and IN4 select its direction, while ENB enables the channel or accepts its PWM signal.
 
@@ -252,6 +262,42 @@ enable_a.duty_u16(32768)
 | 100% | 65,535 | Full drive |
 
 PWM rapidly switches the enable signal on and off. These are command levels, not guaranteed percentages of actual motor speed. Friction, motor characteristics, battery voltage, load, and the L298N voltage drop all affect the result. There is no universal ideal duty cycle.
+
+### Varying the speed command
+
+The next isolated example creates separate PWM outputs for ENA and ENB. The helper converts a percentage into the 16-bit value expected by `duty_u16()`:
+
+```python
+from machine import Pin, PWM
+
+# Example GPIO numbers only — not final Makeathon pin assignments.
+# Remove the corresponding enable jumpers before connecting Pico PWM.
+enable_a = PWM(Pin(4))
+enable_b = PWM(Pin(5))
+
+enable_a.freq(1000)
+enable_b.freq(1000)
+
+def set_speed_percent(enable_pwm, percent):
+    percent = max(0, min(100, percent))
+    duty = int(percent * 65535 / 100)
+    enable_pwm.duty_u16(duty)
+
+# Manual example commands for the two independent motor channels.
+set_speed_percent(enable_a, 25)
+set_speed_percent(enable_b, 60)
+```
+
+`enable_a` would connect to ENA and `enable_b` to ENB. Calling `set_speed_percent(enable_a, 25)` requests a 25% duty cycle for Motor A's channel; changing `25` to another value from 0 to 100 changes the command. The same applies independently to Motor B.
+
+The direction inputs must already be set to a valid direction state before a motor will turn. To stop sending PWM and disable a channel, request 0%:
+
+```python
+set_speed_percent(enable_a, 0)
+set_speed_percent(enable_b, 0)
+```
+
+This example only demonstrates manual speed commands. It does not decide speeds from sensor readings or implement a line-following algorithm.
 
 The L298N is an older design and loses some voltage as heat, so the motors receive less voltage than the battery provides. Its exact terminals, jumpers, regulator arrangement, and logic-power requirements vary between modules.
 
@@ -369,6 +415,8 @@ while True:
 
 Move the sensors manually across the line and background, then record the combinations you observe. This example only measures and displays inputs. Deciding how the motors should respond to those combinations is part of the Makeathon challenge.
 
+Before relying on the readings, follow the [IR sensor calibration guide](../guides/ir_sensor_calibration.md).
+
 See [Pico to IR sensor wiring](../wiring/pico_to_ir_sensors.md) and [digital inputs](../concepts/digital_inputs.md).
 
 ## Breadboard
@@ -377,14 +425,8 @@ A breadboard makes temporary circuits without solder. Holes in each short termin
 
 The breadboard is a passive electrical connection tool and is not controlled by software.
 
-```text
-Power rail:   +  o-o-o-o-o-o-o-o     (may be split part-way)
-Ground rail:  -  o-o-o-o-o-o-o-o
+![Breadboard pinout](../assets/diagrams/Breadboard.jpg)
 
-Terminal rows:   o-o-o-o-o  |  o-o-o-o-o
-                             ^
-                         centre gap
-```
 
 This diagram is conceptual: check the markings and continuity of the actual board. On some breadboards, a power rail is split in the middle and the two halves are not connected unless bridged.
 

@@ -11,6 +11,22 @@ This repository does **not** provide a complete competition solution or finished
 
 ---
 
+## Hardware Provided
+
+Each team will receive:
+
+- 1× Raspberry Pi Pico
+- 2× DC motors with wheels
+- 2× IR line sensor modules
+- 1× L298N motor controller
+- 1× breadboard
+- 1× 4×AA battery holder
+- 4× AA batteries
+
+See the [Electronics Guide](electronics/README.md) for an explanation of each component and its role in the robot.
+
+---
+
 ## What's in this Repository?
 
 Resources will cover areas such as:
@@ -131,12 +147,14 @@ Makeathon/
 │   ├── pico_setup.md          # Thonny installation and connecting the board
 │   ├── micropython_setup.md   # Understanding and configuring MicroPython
 │   ├── uploading_code.md      # Run, save, and main.py workflow
+│   ├── ir_sensor_calibration.md
 │   └── pre_power_check.md
 │
 ├── troubleshooting/
 │   └── README.md
 │
 ├── assets/
+│   ├── README.md
 │   ├── diagrams/
 │   └── images/
 │

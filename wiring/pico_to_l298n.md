@@ -16,7 +16,9 @@ The Pico sends low-current control signals to the motor driver. It does not send
 | ENB | `Pico PWM GPIO <TBD>` or confirmed jumper arrangement | Motor B speed/enable |
 | GND | Pico GND | Common signal reference and return path |
 
-Some L298N modules use removable jumpers on ENA and ENB. Confirm the supplied board before removing jumpers or applying PWM. The module's motor supply, logic supply, and regulator arrangement must also be confirmed from its labels and documentation.
+Some L298N modules use removable jumpers on ENA and ENB. On a typical module, a fitted jumper holds its channel enabled continuously—equivalent to a 100% enable command—while removing it allows the EN pin to receive PWM from the Pico. This does not guarantee 100% physical motor speed.
+
+Confirm the supplied board before removing a jumper or applying PWM. Never manually short ENA and ENB together or connect an enable pin to an unconfirmed power terminal. The module's motor supply, logic supply, regulator arrangement, and final jumper arrangement must all be confirmed from its labels and documentation.
 
 ## Safe connection order
 

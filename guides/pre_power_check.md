@@ -2,6 +2,8 @@
 
 Complete this check before inserting batteries or switching on motor power. If anything is uncertain, keep power off and ask a supervisor.
 
+> The final standalone power connection for the Raspberry Pi Pico is still to be confirmed. Follow the final Makeathon wiring diagram once published.
+
 - [ ] Battery positive and negative match the confirmed motor-supply terminals.
 - [ ] No visible short connects positive power directly to ground.
 - [ ] Pico, sensor, and motor-driver grounds are connected where required by the design.
@@ -13,6 +15,7 @@ Complete this check before inserting batteries or switching on motor power. If a
 - [ ] No loose wires can fall into another terminal or touch a wheel.
 - [ ] No exposed conductors or stray wire strands can cause a short.
 - [ ] L298N terminals and jumpers match the supplied module's confirmed arrangement.
+- [ ] The Pico power connection matches the final published Makeathon wiring diagram; no unconfirmed battery-to-Pico connection has been added.
 - [ ] Batteries are inserted with the orientation marked on the holder.
 - [ ] The robot is raised or restrained for its first motor test.
 

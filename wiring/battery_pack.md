@@ -2,7 +2,11 @@
 
 > Supplied battery chemistry, resulting voltage range, and the exact L298N power arrangement are to be confirmed.
 
+> The final standalone power connection for the Raspberry Pi Pico is still to be confirmed. Follow the final Makeathon wiring diagram once published.
+
 The battery pack's positive (`+`, commonly red) lead goes to the confirmed positive motor-supply terminal. Its negative (`-`, commonly black) lead goes to the motor-supply ground. That ground must connect to the control-system ground where required so the Pico and L298N share a signal reference.
+
+This describes the motor-supply path only. It does not instruct you to connect the AA pack to the Pico or to `VSYS`.
 
 Do not connect the battery by wire colour alone: verify the pack markings and terminal labels. If a multimeter is available, measure the pack with the batteries inserted and confirm both polarity and a plausible voltage before connection.
 
