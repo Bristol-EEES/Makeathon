@@ -11,6 +11,9 @@ Complete this check before inserting batteries or switching on motor power. If a
 - [ ] Motor power does not pass through a GPIO pin or signal connection.
 - [ ] Sensor VCC, GND, and output pins match the confirmed sensor pinout.
 - [ ] Sensor output voltage is safe for 3.3 V Pico GPIO.
+- [ ] Each ultrasonic sensor's VCC, Trig, Echo, and GND pins match the confirmed pinout.
+- [ ] Ultrasonic Echo signals pass through the approved level-conditioning circuit; no unconfirmed 5 V signal connects directly to Pico GPIO.
+- [ ] The two ultrasonic sensors will be triggered separately during testing to reduce crosstalk.
 - [ ] Breadboard power rails are correctly identified; any split rails are bridged only where intended.
 - [ ] No loose wires can fall into another terminal or touch a wheel.
 - [ ] No exposed conductors or stray wire strands can cause a short.

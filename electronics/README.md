@@ -8,6 +8,7 @@ This page describes the main electrical components supplied during the Makeathon
 - [DC Motors](#dc-motors)
 - [L298N Motor Controller](#l298n-motor-controller)
 - [IR Infrared Sensor Modules](#ir-infrared-sensor-modules)
+- [Ultrasonic Distance Sensors](#ultrasonic-distance-sensors)
 - [Breadboard](#breadboard)
 - [4x AA Battery Pack](#4x-aa-battery-pack)
 - [How the Components Work Together](#how-the-components-work-together)
@@ -307,7 +308,9 @@ Wiring polarity matters: reversing a supply connection can damage hardware, whil
 
 ## IR Infrared Sensor Modules
 
-An IR reflectance sensor shines infrared light at the floor with an **emitter** and measures reflected light with a **receiver**. Light and dark surfaces commonly reflect different amounts, allowing sensors underneath the robot to help determine where a line is.
+An IR reflectance sensor shines infrared light at the floor with an **emitter** and measures reflected light with a **receiver**. A dark line typically absorbs more infrared light and reflects less back to the receiver, while a lighter background typically reflects more. The module detects this difference, allowing sensors underneath the robot to help determine whether they are over the line or the background.
+
+This is the usual operating principle, not a guaranteed mapping. Surface material, gloss, colour, sensor height, and ambient light can affect reflection. The supplied sensors must therefore be tested and calibrated rather than assuming which digital value represents the line.
 
 ![IR sensor module pinout and components](../assets/diagrams/IR_Pin.webp)
 
@@ -419,6 +422,95 @@ Before relying on the readings, follow the [IR sensor calibration guide](../guid
 
 See [Pico to IR sensor wiring](../wiring/pico_to_ir_sensors.md) and [digital inputs](../concepts/digital_inputs.md).
 
+## Ultrasonic Distance Sensors
+
+An ultrasonic distance sensor estimates the distance to an object using sound pulses above the normal range of human hearing. The supplied reference image identifies an HC-SR04-style module.
+
+![HC-SR04 ultrasonic sensor pinout](../assets/diagrams/ULT_Pins.png)
+
+*Reference pinout for an HC-SR04 ultrasonic distance sensor. The visible source watermark has been preserved. Confirm that the supplied modules match before wiring them.*
+
+### How it works
+
+The two round components are ultrasonic transducers. One transmits a brief burst of sound and the other listens for the reflection:
+
+1. The Pico sends a short HIGH pulse to **Trig**.
+2. The module transmits an ultrasonic burst.
+3. Sound reflects from a nearby object.
+4. The module holds **Echo** HIGH for a time related to the sound's round trip.
+5. The Pico measures that pulse duration and calculates an estimated distance.
+
+Because the sound travels to the object and back, the calculation divides the total travel distance by two. See [Ultrasonic Distance Measurement](../concepts/ultrasonic_distance.md) for the time-of-flight concept and common measurement limitations.
+
+### Ultrasonic sensor pins
+
+| Pin | Type | What it does |
+|---|---|---|
+| VCC | Power input | Powers the sensor module; use only the confirmed supply |
+| Trig | Digital input to sensor | Receives a short control pulse from a Pico GPIO output |
+| Echo | Digital output from sensor | Produces a timed pulse for a Pico GPIO input, through confirmed level conditioning |
+| GND | Ground | Provides the electrical reference and current return path |
+
+#### VCC and GND
+
+The reference HC-SR04 design commonly uses a 5 V supply, but the exact supplied module and final power rail must be confirmed. GND must be shared with the Pico so that Trig and Echo have a common voltage reference.
+
+#### Trig
+
+Trig starts one measurement. The Pico configures its connected GPIO as an output, briefly drives it HIGH, and then returns it LOW. Trig is a signal input; it does not power the module.
+
+#### Echo
+
+Echo is the measurement signal returned by the module. Its HIGH-pulse duration represents the ultrasonic round-trip time.
+
+> **Voltage warning:** Standard HC-SR04 modules can produce a 5 V Echo signal. Pico GPIO uses 3.3 V logic. Do not connect Echo directly to the Pico unless its voltage has been confirmed safe; use the approved voltage divider or level shifter from the final Makeathon wiring design.
+
+### Minimal MicroPython distance test
+
+The following example demonstrates one sensor only. GPIO 6 and GPIO 7 are examples, not final Makeathon assignments. It assumes Echo already passes through the confirmed level-conditioning circuit.
+
+```python
+from machine import Pin, time_pulse_us
+from time import sleep, sleep_us
+
+# Example GPIO numbers only — not final Makeathon pin assignments.
+trigger = Pin(6, Pin.OUT)
+echo = Pin(7, Pin.IN)
+trigger.value(0)
+
+def read_distance_cm():
+    # Send the short trigger pulse.
+    trigger.value(0)
+    sleep_us(2)
+    trigger.value(1)
+    sleep_us(10)
+    trigger.value(0)
+
+    # Measure how long Echo remains HIGH, with a timeout.
+    pulse_us = time_pulse_us(echo, 1, 30000)
+    if pulse_us < 0:
+        return None
+
+    # Sound travels to the object and back, so divide by two.
+    return pulse_us * 0.0343 / 2
+
+while True:
+    distance = read_distance_cm()
+    if distance is None:
+        print("No echo received")
+    else:
+        print("Distance:", distance, "cm")
+    sleep(0.2)
+```
+
+`Pin.OUT` configures the example Trig GPIO to send the trigger pulse. `Pin.IN` configures the example Echo GPIO to receive the conditioned pulse. `time_pulse_us(echo, 1, 30000)` measures a HIGH pulse in microseconds and stops waiting after the timeout. A negative result means a complete pulse was not measured.
+
+The factor `0.0343` is the approximate speed of sound in centimetres per microsecond at room temperature. Actual readings vary with temperature, surface angle, object material, mounting, and the sensor itself.
+
+For the second sensor, use a separate confirmed Trig/Echo GPIO pair. Trigger the two modules one at a time with a pause between them; simultaneous measurements can interfere with each other. This example deliberately reports distance only and does not contain obstacle-avoidance or motor-control logic.
+
+See [Pico to ultrasonic sensor wiring](../wiring/pico_to_ultrasonic_sensors.md) and [ultrasonic troubleshooting](../troubleshooting/README.md).
+
 ## Breadboard
 
 A breadboard makes temporary circuits without solder. Holes in each short terminal strip are connected internally. The centre gap separates the two sides so that dual-inline components can straddle it. Long side rails are often used for power and ground.
@@ -448,12 +540,14 @@ The battery pack does not require MicroPython code. It provides electrical power
 
 ## How the Components Work Together
 
-The sensors report the surface beneath the robot. The Pico reads those signals and chooses motor commands. The L298N converts the Pico's control signals into the higher-current drive needed by the motors. The battery supplies the motor/power system.
+The IR sensors report the surface beneath the robot, while the ultrasonic sensors can provide distance measurements. The Pico reads those signals and chooses motor commands. The L298N converts the Pico's control signals into the higher-current drive needed by the motors. The battery supplies the motor/power system.
 
 ```text
 [Left IR sensor]  --\
                     >-- [Raspberry Pi Pico] --control/PWM--> [L298N] --> [Left motor]
 [Right IR sensor] --/                                      └----------> [Right motor]
+
+[Ultrasonic sensors] <-- Trig / conditioned Echo ----------> [Pico]
 
 [Battery pack] --------------------------motor power-------> [L298N]
         Ground reference shared where required by the confirmed design

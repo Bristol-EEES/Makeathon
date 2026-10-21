@@ -18,6 +18,7 @@ Each team will receive:
 - 1× Raspberry Pi Pico
 - 2× DC motors with wheels
 - 2× IR line sensor modules
+- 2× ultrasonic distance sensor modules
 - 1× L298N motor controller
 - 1× breadboard
 - 1× 4×AA battery holder
@@ -35,6 +36,7 @@ Resources will cover areas such as:
 - Electronic components used during the Makeathon
 - Motors and motor drivers
 - Line sensors
+- Ultrasonic distance sensors
 - Power systems
 - Wiring and connections
 - GPIO, PWM and analogue/digital signals
@@ -131,6 +133,7 @@ Makeathon/
 │
 ├── wiring/
 │   ├── pico_to_ir_sensors.md
+│   ├── pico_to_ultrasonic_sensors.md
 │   ├── pico_to_l298n.md
 │   ├── motors_to_l298n.md
 │   ├── battery_pack.md
@@ -140,6 +143,7 @@ Makeathon/
 │   ├── gpio.md
 │   ├── pwm.md
 │   ├── digital_inputs.md
+│   ├── ultrasonic_distance.md
 │   ├── motor_direction.md
 │   └── line_following_basics.md
 │

@@ -69,7 +69,9 @@ If MicroPython is already installed, the Pico may appear as a serial device and 
 4. Release BOOTSEL after the board is connected.
 5. The Pico should appear as a USB storage device, typically named `RPI-RP2`.
 
-If no drive appears, disconnect the Pico and repeat the steps with a known data-capable cable. Some newer Pico-family boards may show a different storage name, so confirm the exact board model before choosing firmware.
+If no drive appears, disconnect the Pico and repeat the steps with a known data-capable cable.
+
+> **Board model for this Makeathon:** The supplied board is the standard, original **Raspberry Pi Pico**. When choosing an interpreter or UF2 firmware, select **Raspberry Pi Pico**—not Pico W, Pico 2, or Pico 2 W.
 
 ## 4. Installing MicroPython on the Pico
 
@@ -82,9 +84,9 @@ This is usually the easiest method.
 1. Connect the Pico. If Thonny cannot find usable firmware, put the Pico into BOOTSEL mode as described above.
 2. Open Thonny.
 3. Find the interpreter or backend settings. Depending on the Thonny version, this may be available from an interpreter selector near the bottom-right of the window, from the **Run** menu, or in Thonny's settings/options.
-4. Choose **MicroPython (Raspberry Pi Pico)**, or the closest equivalent for the exact Pico model.
+4. Choose **MicroPython (Raspberry Pi Pico)**. This is the option for the standard Pico supplied in the kit.
 5. If MicroPython is not installed, use Thonny's firmware installation command. It may use wording such as “Install MicroPython”.
-6. Select the exact Pico model if asked. A Pico, Pico W, Pico 2, and Pico 2 W do not necessarily use the same firmware.
+6. If asked for the board model, select **Raspberry Pi Pico**. Do not select Pico W, Pico 2, or Pico 2 W because those are different boards and may use different firmware.
 7. Choose the recommended stable MicroPython release rather than a preview or development build.
 8. Start the installation and wait until Thonny reports that it is complete. Do not unplug the board during installation.
 
@@ -94,9 +96,12 @@ Menu names can change between Thonny versions. The important goal is to open the
 
 Use this fallback if Thonny's installer is unavailable or a supervisor asks you to perform a manual recovery.
 
-1. Put the Pico into BOOTSEL mode. The `RPI-RP2` storage device should appear for the supplied Pico model.
-2. Download the correct stable MicroPython `.uf2` firmware from the [official Raspberry Pi MicroPython page](https://www.raspberrypi.com/documentation/microcontrollers/micropython.html) or the [official MicroPython downloads](https://micropython.org/download/).
-3. Check that the download is for the exact Pico model in front of you.
+1. Put the Pico into BOOTSEL mode. The `RPI-RP2` storage device should appear.
+2. Download the stable MicroPython `.uf2` firmware specifically labelled **Raspberry Pi Pico** from the [official Raspberry Pi MicroPython page](https://www.raspberrypi.com/documentation/microcontrollers/micropython.html) or the [official MicroPython downloads](https://micropython.org/download/).
+3. Before copying it, check again that the download says **Pico**, not Pico W, Pico 2, or Pico 2 W.
+
+![Micropython Install](../assets/diagrams/MP_Install.png)
+
 4. Copy the `.uf2` file onto `RPI-RP2`, as you would copy a file to a USB drive.
 5. Wait. The storage device should disappear and the Pico should reboot automatically into MicroPython.
 
@@ -108,7 +113,7 @@ Thonny can run ordinary Python on your computer or MicroPython on the Pico. Sele
 
 1. Open Thonny and connect the Pico normally, without holding BOOTSEL.
 2. Find the interpreter selector, commonly near the bottom-right of the Thonny window. If it is not visible, look in the **Run** menu or the interpreter section of Thonny's settings/options.
-3. Choose **MicroPython (Raspberry Pi Pico)**, or the closest matching option for the exact Pico model.
+3. Choose **MicroPython (Raspberry Pi Pico)** for the standard Pico supplied in the kit.
 4. Select the Pico's USB/serial port if Thonny asks. An automatic port option may work; otherwise select the device that appears when the Pico is connected.
 5. Confirm or apply the settings.
 6. Show Thonny's **Shell** panel if it is hidden. A MicroPython prompt containing `>>>` should become available.
