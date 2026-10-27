@@ -1,32 +1,37 @@
 # Wiring the Pico to the L298N
 
-> Exact Pico GPIO assignments and the supplied L298N module layout are to be confirmed.
+Motor A is the left motor. Motor B is the right motor.
 
-Use the [labelled L298N reference diagram](../electronics/README.md#l298n-motor-controller) to identify the usual terminal names, but check them against the supplied board. The diagram is a reference pinout, not the final Makeathon wiring scheme.
+| Function | Pico GPIO | Physical pin | L298N connection |
+|---|---:|---:|---|
+| Left direction 1 | GP2 | 4 | IN1 |
+| Left direction 2 | GP3 | 5 | IN2 |
+| Left PWM/enable | GP4 | 6 | ENA |
+| Right direction 1 | GP6 | 9 | IN3 |
+| Right direction 2 | GP7 | 10 | IN4 |
+| Right PWM/enable | GP8 | 11 | ENB |
+| Common reference | Pico GND | Convenient GND pin | L298N GND |
 
-The Pico sends low-current control signals to the motor driver. It does not send motor power through its GPIO pins.
+L298N OUT1/OUT2 connect to the left motor. OUT3/OUT4 connect to the right motor. Do not label one input combination as universally physical “forward”; mounting and output-wire order determine the observed direction.
 
-| L298N pin | Pico connection | Purpose |
-|---|---|---|
-| IN1 | `Pico GPIO <TBD>` | Motor A direction control |
-| IN2 | `Pico GPIO <TBD>` | Motor A direction control |
-| ENA | `Pico PWM GPIO <TBD>` or confirmed jumper arrangement | Motor A speed/enable |
-| IN3 | `Pico GPIO <TBD>` | Motor B direction control |
-| IN4 | `Pico GPIO <TBD>` | Motor B direction control |
-| ENB | `Pico PWM GPIO <TBD>` or confirmed jumper arrangement | Motor B speed/enable |
-| GND | Pico GND | Common signal reference and return path |
+## Enable and regulator jumpers
 
-Some L298N modules use removable jumpers on ENA and ENB. On a typical module, a fitted jumper holds its channel enabled continuously—equivalent to a 100% enable command—while removing it allows the EN pin to receive PWM from the Pico. This does not guarantee 100% physical motor speed.
+GP4 drives ENA and GP8 drives ENB with PWM. Remove an ENA or ENB jumper if it permanently ties that enable input HIGH; otherwise the Pico cannot vary that channel's enable duty cycle.
 
-Confirm the supplied board before removing a jumper or applying PWM. Never manually short ENA and ENB together or connect an enable pin to an unconfirmed power terminal. The module's motor supply, logic supply, regulator arrangement, and final jumper arrangement must all be confirmed from its labels and documentation.
+The ENA jumper, ENB jumper, and separate **5V-EN/regulator jumper** are different. The first two affect motor-channel enable. The regulator jumper configures the final L298N 5 V rail used by the Pico and ultrasonic sensors.
+
+## Power connections
+
+The four-AA battery holder supplies the L298N motor input. The L298N `5V` terminal supplies Pico `VSYS` and both HC-SR04 VCC pins. Battery negative, L298N GND, Pico GND, and all sensor grounds join the common GND rail.
 
 ## Safe connection order
 
-1. Switch off and disconnect motor and USB power.
-2. Confirm the module terminal labels and jumper arrangement.
-3. Connect the common ground.
-4. Connect the direction and, if used, enable/PWM signals.
-5. Connect motors and motor power using their separate paths.
-6. Complete the pre-power inspection before applying power.
+1. Remove batteries and disconnect USB.
+2. Confirm the module labels and regulator-jumper position.
+3. Remove the ENA and ENB jumpers when required for external PWM.
+4. Connect common ground.
+5. Connect IN1–IN4 and ENA/ENB using the table above.
+6. Connect motors and the documented power wiring.
+7. Complete the [pre-power check](../guides/pre_power_check.md) before applying power.
 
-Never connect a motor to Pico GPIO or route motor current through the Pico. See [GPIO limits](../concepts/gpio.md), [PWM](../concepts/pwm.md), [full-system wiring](full_system_wiring.md), and the [pre-power check](../guides/pre_power_check.md).
+Never connect a motor to Pico GPIO or route motor current through the Pico. See [PWM](../concepts/pwm.md) and [full-system wiring](full_system_wiring.md).

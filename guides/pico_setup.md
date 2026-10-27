@@ -19,8 +19,6 @@ The [Pico pinout in the electronics guide](../electronics/README.md#raspberry-pi
 
 Download Thonny only from the [official Thonny website](https://thonny.org/). The site presents the current downloads for each operating system, so installer names and screen wording may differ from this guide.
 
-![Thonny](../assets/diagrams/Thonny.png)
-
 ### Windows
 
 1. On the Thonny website, choose the Windows installer that matches your computer. Most participants will need the standard installer for an Intel or AMD computer.
@@ -100,7 +98,7 @@ Use this fallback if Thonny's installer is unavailable or a supervisor asks you 
 2. Download the stable MicroPython `.uf2` firmware specifically labelled **Raspberry Pi Pico** from the [official Raspberry Pi MicroPython page](https://www.raspberrypi.com/documentation/microcontrollers/micropython.html) or the [official MicroPython downloads](https://micropython.org/download/).
 3. Before copying it, check again that the download says **Pico**, not Pico W, Pico 2, or Pico 2 W.
 
-![Micropython Install](../assets/diagrams/MP_Install.png)
+![MicroPython firmware choices with the standard Raspberry Pi Pico option highlighted](../assets/diagrams/MP_Install.png)
 
 4. Copy the `.uf2` file onto `RPI-RP2`, as you would copy a file to a USB drive.
 5. Wait. The storage device should disappear and the Pico should reboot automatically into MicroPython.

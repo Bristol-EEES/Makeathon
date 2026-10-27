@@ -1,28 +1,16 @@
 # Wiring the Pico to the IR Sensors
 
-> Exact sensor model, pinout, supply requirements, and GPIO assignments are to be confirmed.
+Each IR line sensor has VCC, GND, and OUT. Check the printed labels because physical pin order can vary.
 
-The [labelled IR sensor reference diagram](../electronics/README.md#ir-infrared-sensor-modules) shows the common `VCC`, `GND`, and `OUT` labels and the module's main parts. Confirm that the supplied sensor has the same pin order before connecting it.
+| Sensor | VCC | GND | OUT |
+|---|---|---|---|
+| Left IR sensor | Pico `3V3(OUT)` | Common GND | Pico GP14, physical pin 19 |
+| Right IR sensor | Pico `3V3(OUT)` | Common GND | Pico GP15, physical pin 20 |
 
-Each sensor normally needs three functional connections: power (`VCC`), ground (`GND`), and an output signal. Do not rely on the physical order of pins; read the labels on the confirmed module.
+Powering these sensors from the Pico's regulated 3.3 V output keeps their digital outputs in the Pico's 3.3 V logic domain. `3V3(OUT)` is a power output; OUT is the sensor's signal. Do not swap them.
 
-| IR sensor pin | Connects to | Purpose |
-|---|---|---|
-| VCC | Appropriate confirmed power rail | Powers the sensor module |
-| GND | Pico/system GND | Provides the common reference and return path |
-| OUT | `Pico GPIO <TBD>` | Carries the digital sensor signal |
+The Pico reads GP14 and GP15 as digital HIGH or LOW. The electrical connections are final, but teams must still calibrate both modules over the actual light background and dark line to discover their HIGH/LOW sense and suitable threshold. A dark line normally reflects less infrared light than the lighter background.
 
-Both modules use the same three pin functions, but their `OUT` signals need separate Pico inputs:
+Remove power before changing connections. All grounds must join the common GND rail.
 
-| Device | Signal | Pico connection |
-|---|---|---|
-| Left IR sensor | OUT | `Pico GPIO <TBD>` |
-| Right IR sensor | OUT | `Pico GPIO <TBD>` |
-
-The Pico reads each output as a digital HIGH or LOW. Before connection, confirm that the sensor's output voltage cannot exceed the Pico GPIO's 3.3 V-safe range. A module powered at a higher voltage is not automatically safe for a Pico input.
-
-Connect grounds before relying on a signal: without a common ground, the Pico and sensor may interpret voltages differently. With motor power off, test one sensor independently, observe how its output changes over light and dark surfaces, and then repeat for the other sensor. This also reveals whether HIGH means light or dark for the actual module.
-
-VCC is a power input and OUT is a signal output; do not swap them. Verify the sensor's pin order and power requirements before switching on.
-
-Next: [calibrate the IR sensors](../guides/ir_sensor_calibration.md) · [digital inputs](../concepts/digital_inputs.md) · [full-system wiring](full_system_wiring.md) · [pre-power check](../guides/pre_power_check.md) · [electronics guide](../electronics/README.md)
+Next: [calibrate the IR sensors](../guides/ir_sensor_calibration.md) · [digital inputs](../concepts/digital_inputs.md) · [full-system wiring](full_system_wiring.md) · [pre-power check](../guides/pre_power_check.md)

@@ -38,4 +38,8 @@ With two sensors, trigger and read them one at a time rather than simultaneously
 
 The sensor estimates distance within its acoustic beam. It does not produce an image, identify what the object is, or guarantee that every obstacle will reflect a usable echo. Test the actual mounting, target surfaces, and event environment.
 
-See the [ultrasonic sensor electronics section](../electronics/README.md#ultrasonic-distance-sensors) and [Pico wiring guide](../wiring/pico_to_ultrasonic_sensors.md).
+The robot uses two HC-SR04-style sensors. Trigger them one at a time to reduce cross-interference. Sensor #1 uses GP10/GP11 and sensor #2 uses GP12/GP13; each Echo input has its own divider. See the [ultrasonic sensor electronics section](../electronics/README.md#ultrasonic-distance-sensors) and [Pico wiring guide](../wiring/pico_to_ultrasonic.md).
+
+## Signal direction and voltage safety
+
+TRIG is an input to the sensor: the Pico sends a 3.3 V pulse directly from GP10 or GP12. Echo travels in the opposite direction. The 5 V-powered HC-SR04 drives ECHO, which may be approximately 5 V, so it must pass through that sensor's own 1 kΩ/2 kΩ divider before reaching GP11 or GP13. Never connect raw Echo directly to Pico GPIO or share one divider between both sensors.

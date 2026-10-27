@@ -18,11 +18,15 @@ Each team will receive:
 - 1× Raspberry Pi Pico
 - 2× DC motors with wheels
 - 2× IR line sensor modules
-- 2× ultrasonic distance sensor modules
+- 2× HC-SR04 ultrasonic sensors
 - 1× L298N motor controller
 - 1× breadboard
 - 1× 4×AA battery holder
 - 4× AA batteries
+- 2× 1 kΩ resistors
+- 2× 2 kΩ resistors
+
+The four resistors form two separate HC-SR04 Echo voltage dividers: one 1 kΩ and one 2 kΩ resistor for each sensor. They protect Pico GPIO signal inputs; they are not used to power the Pico.
 
 See the [Electronics Guide](electronics/README.md) for an explanation of each component and its role in the robot.
 
@@ -52,15 +56,17 @@ Additional resources may be added as the Makeathon approaches.
 
 ## Getting Started
 
-Before the Makeathon, we recommend becoming familiar with:
+Build and test one subsystem at a time. This order gives beginners a clear path without jumping straight to a complete robot program:
 
-1. The Raspberry Pi Pico and its GPIO pins — start with the [Pico setup guide](guides/pico_setup.md)
-2. The electronic components provided for the challenge
-3. How the motors and motor driver work
-4. How the line sensors detect the track
-5. How the components should be wired together
-6. Basic concepts such as PWM, digital inputs and analogue signals
-7. The general control process used by a line-following robot
+1. [Install Thonny, connect the Pico, install MicroPython, and run the REPL test](guides/pico_setup.md).
+2. Learn the difference between [GPIO numbers and physical pins](concepts/gpio.md).
+3. [Connect and calibrate both IR sensors](guides/ir_sensor_calibration.md), then run their isolated input test.
+4. Read about [motor direction](concepts/motor_direction.md), wire the [Pico to the L298N](wiring/pico_to_l298n.md), and test the left and right motors separately.
+5. Learn how [PWM controls the motor-enable command](concepts/pwm.md) and try the isolated PWM example in the [electronics guide](electronics/README.md#motor-speed-with-pwm).
+6. Wire and test [ultrasonic sensor #1, then sensor #2](wiring/pico_to_ultrasonic.md).
+7. Compare the assembled robot with the [final diagram and connection tables](wiring/full_system_wiring.md).
+8. Complete the [pre-power check](guides/pre_power_check.md).
+9. Begin developing and testing your team's own control logic.
 
 You do **not** need to have built a line-following robot before the event.
 
@@ -133,7 +139,7 @@ Makeathon/
 │
 ├── wiring/
 │   ├── pico_to_ir_sensors.md
-│   ├── pico_to_ultrasonic_sensors.md
+│   ├── pico_to_ultrasonic.md
 │   ├── pico_to_l298n.md
 │   ├── motors_to_l298n.md
 │   ├── battery_pack.md

@@ -1,22 +1,22 @@
 # Wiring the Battery Pack
 
-> Supplied battery chemistry, resulting voltage range, and the exact L298N power arrangement are to be confirmed.
+The four-AA battery holder provides the robot's nominal 6 V source.
 
-> The final standalone power connection for the Raspberry Pi Pico is still to be confirmed. Follow the final Makeathon wiring diagram once published.
+| Battery connection | Destination |
+|---|---|
+| Positive (`+`) | L298N motor-supply positive terminal |
+| Negative (`-`) | L298N GND/common GND |
 
-The battery pack's positive (`+`, commonly red) lead goes to the confirmed positive motor-supply terminal. Its negative (`-`, commonly black) lead goes to the motor-supply ground. That ground must connect to the control-system ground where required so the Pico and L298N share a signal reference.
+The L298N `5V` terminal supplies Pico `VSYS` and both HC-SR04 VCC pins. Do not connect the nominal 6 V battery output directly to Pico `VSYS` or `3V3(OUT)`.
 
-This describes the motor-supply path only. It does not instruct you to connect the AA pack to the Pico or to `VSYS`.
-
-Do not connect the battery by wire colour alone: verify the pack markings and terminal labels. If a multimeter is available, measure the pack with the batteries inserted and confirm both polarity and a plausible voltage before connection.
+Battery negative, L298N GND, Pico GND, both IR sensor grounds, and both ultrasonic sensor grounds form the common GND rail. Remove batteries and disconnect USB before changing wiring.
 
 ## Safety
 
-- Switch off or remove the batteries before rewiring.
+- Verify polarity from the holder markings rather than wire colour alone.
 - Never allow the positive and negative leads to touch.
-- Do not route motor power through a Pico GPIO pin or breadboard signal row.
-- Check for stray wire strands and exposed conductors.
-- Do not reverse the motor-supply polarity.
+- Do not route motor power through Pico GPIO or breadboard signal rows.
+- Check for stray strands and exposed conductors.
 - Stop immediately if a wire, battery, or module becomes unexpectedly hot.
 
 See [full-system wiring](full_system_wiring.md), the [electronics guide](../electronics/README.md), and the [pre-power check](../guides/pre_power_check.md).
