@@ -6,14 +6,21 @@ The [L298N reference diagram](../electronics/README.md#l298n-motor-controller) s
 
 The input pair for a channel selects the direction of current through its motor. Reversing the two output wires reverses that motor's physical rotation for the same control command.
 
-## Test one motor at a time
+## Motor direction calibration
 
-1. Raise the wheels so the robot cannot drive away.
-2. Use a low, controlled test command for the left motor (Motor A) while the right motor is stopped.
-3. Check which wheel turns and in which physical direction.
-4. Stop power before changing wires.
-5. Repeat for the right motor (Motor B).
+Complete this before debugging line-following behaviour:
 
-If one wheel turns backwards when both are commanded to move the robot forward, that motor may be wired with the opposite polarity. Swap only its two motor wires, or account for its orientation in the eventual control logic. Do not swap battery polarity.
+1. Check the documented power and common-ground connections.
+2. Raise the drive wheels so the robot cannot move away.
+3. Test Motor A by itself and record which way its wheel rotates.
+4. Test the opposite IN1/IN2 state and identify which state produces physical forward motion.
+5. Stop Motor A and repeat the process for Motor B using IN3/IN4.
+6. Command both motors in their intended physical-forward states.
+7. Confirm that both wheels would propel the robot forward.
+8. If one wheel is reversed, disconnect battery and USB power, swap only that motor's two L298N output wires, and retest. Alternatively, invert that motor's direction states in your own code.
+9. Test each enable channel at a high PWM duty so the motor starts reliably, then reduce it gradually to find the useful running range.
+10. Only after both motors behave predictably should you begin integrating sensor behaviour.
+
+Motor A uses OUT1/OUT2 and Motor B uses OUT3/OUT4. Never swap battery polarity to correct one motor. Physical direction calibration is a normal assembly step, not evidence that the reference GPIO table is wrong.
 
 See [motor direction](../concepts/motor_direction.md), [full-system wiring](full_system_wiring.md), the [electronics guide](../electronics/README.md), and the [pre-power check](../guides/pre_power_check.md).

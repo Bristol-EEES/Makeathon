@@ -4,6 +4,8 @@ Calibration helps each sensor distinguish the line from the background reliably.
 
 > Do not assume black = 0 and white = 1. Measure the actual behaviour of the supplied sensor.
 
+Left and right are named from the robot's perspective while it faces forward. Before calibration, place a card, hand, or section of the line beneath one sensor at a time and watch the printed values. This confirms which physical module reaches GP14 and which reaches GP15 without changing the canonical wiring table.
+
 ## Calibration procedure
 
 1. Connect **one** IR sensor correctly.

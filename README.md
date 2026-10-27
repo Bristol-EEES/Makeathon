@@ -34,7 +34,7 @@ See the [Electronics Guide](electronics/README.md) for an explanation of each co
 
 ## What's in this Repository?
 
-Resources will cover areas such as:
+Resources cover areas such as:
 
 - Raspberry Pi Pico setup and usage
 - Electronic components used during the Makeathon
@@ -50,8 +50,6 @@ Resources will cover areas such as:
 - Troubleshooting
 - Useful reference material
 
-Additional resources may be added as the Makeathon approaches.
-
 ---
 
 ## Getting Started
@@ -66,7 +64,7 @@ Build and test one subsystem at a time. This order gives beginners a clear path 
 6. Wire and test [ultrasonic sensor #1, then sensor #2](wiring/pico_to_ultrasonic.md).
 7. Compare the assembled robot with the [final diagram and connection tables](wiring/full_system_wiring.md).
 8. Complete the [pre-power check](guides/pre_power_check.md).
-9. Begin developing and testing your team's own control logic.
+9. Read the [line-following concepts](concepts/line_following_basics.md), then begin developing and testing your team's own control logic.
 
 You do **not** need to have built a line-following robot before the event.
 
@@ -102,7 +100,7 @@ Exactly **how you implement this behaviour is up to your team**.
 
 The electronics documentation explains the hardware provided during the Makeathon.
 
-Topics may include:
+Topics include:
 
 - Raspberry Pi Pico
 - DC motors
@@ -115,7 +113,7 @@ Topics may include:
 - Analogue and digital signals
 - Basic electrical concepts
 
-For each component, the documentation will aim to explain:
+For each component, the documentation explains:
 
 - What the component is
 - What it does
@@ -208,3 +206,5 @@ Teams are expected to develop and implement their own solution during the Makeat
 This repository is maintained by the **Bristol Electrical and Electronic Engineering Society (BEEES)** for the Makeathon.
 
 Good luck, and have fun building! 🤖
+
+Image sources and reuse information are tracked in the [asset credits](assets/README.md).

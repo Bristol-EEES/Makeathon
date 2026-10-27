@@ -16,7 +16,7 @@ L298N OUT1/OUT2 connect to the left motor. OUT3/OUT4 connect to the right motor.
 
 ## Enable and regulator jumpers
 
-GP4 drives ENA and GP8 drives ENB with PWM. Remove an ENA or ENB jumper if it permanently ties that enable input HIGH; otherwise the Pico cannot vary that channel's enable duty cycle.
+If an ENA or ENB jumper permanently holds its channel HIGH, IN1–IN4 can still control direction and stopping, but the Pico cannot vary that channel's enable duty cycle. For PWM speed control, remove the relevant enable jumper, connect GP4 → ENA and GP8 → ENB, and generate PWM from the Pico.
 
 The ENA jumper, ENB jumper, and separate **5V-EN/regulator jumper** are different. The first two affect motor-channel enable. The regulator jumper configures the final L298N 5 V rail used by the Pico and ultrasonic sensors.
 

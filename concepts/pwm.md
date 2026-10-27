@@ -8,7 +8,13 @@
 100%: ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾  always on
 ```
 
-When PWM controls a motor driver, the rapid pulses change the average energy delivered to the motor. A larger duty cycle usually makes an unloaded motor turn faster, but load, battery condition, friction, and the motor driver also affect speed.
+When PWM controls a motor driver, the rapid pulses change the average energy delivered to the motor. The duty cycle is the **PWM command** requested by the Pico; it is not a direct measurement of physical motor speed. A 50% PWM command does not mean that the wheel turns at exactly 50% of its maximum speed.
+
+Actual motor speed depends on the motor, battery voltage, L298N voltage drop, mechanical load, friction, wheel contact, and startup or stall behaviour. A motor also usually needs more torque and current to start than it needs to continue turning. At a low duty cycle it may hum or twitch without starting, even though the same duty cycle can keep it moving once it is already rotating.
+
+During isolated testing, begin by checking that the motor can start at a high duty cycle, then reduce the command gradually to find a reliable running range. Do not assume one universal minimum value for every motor or robot.
+
+A program can sometimes apply a short, higher startup command before reducing to a lower running command. This **startup kick** is only a concept: its level and duration must be tested for the supplied motors, and it does not determine how sensor readings should control the robot.
 
 **Frequency** is the number of PWM cycles per second. It must be fast enough for useful control and suitable for the hardware, but there is no single correct value for every motor and driver.
 

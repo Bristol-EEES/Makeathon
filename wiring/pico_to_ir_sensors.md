@@ -2,6 +2,8 @@
 
 Each IR line sensor has VCC, GND, and OUT. Check the printed labels because physical pin order can vary.
 
+**Left and right are defined from the robot's perspective while it is facing forward.** They are not the observer's left and right when looking at the front of the robot.
+
 | Sensor | VCC | GND | OUT |
 |---|---|---|---|
 | Left IR sensor | Pico `3V3(OUT)` | Common GND | Pico GP14, physical pin 19 |
