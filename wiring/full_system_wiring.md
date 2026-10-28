@@ -2,6 +2,8 @@
 
 This page is the authoritative textual wiring reference for the Makeathon robot. MicroPython uses the GPIO numbers (`GP2`, `GP3`, and so on), not the physical header-pin numbers.
 
+If you need to understand why a connection, voltage, divider, or motor-driver pin is required, return to the core [Electronics Guide](../electronics/README.md) before continuing.
+
 ## Final Makeathon Wiring Diagram
 
 ![Final BEEES Makeathon robot wiring showing Raspberry Pi Pico, L298N, motors, IR sensors, ultrasonic sensors and Echo voltage dividers](../assets/diagrams/Full_circuit.png)

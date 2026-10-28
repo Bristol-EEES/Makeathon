@@ -11,6 +11,27 @@ This repository does **not** provide a complete competition solution or finished
 
 ---
 
+## Read the Electronics Guide First
+
+The [Electronics Guide](electronics/README.md) is one of the main participant references. Read it before wiring the robot: it explains the hardware and electrical concepts needed to build and test each subsystem safely.
+
+It covers:
+
+- Raspberry Pi Pico GPIO and power pins
+- 3.3 V logic and the roles of `VSYS`, `VBUS`, and `3V3(OUT)`
+- DC motors and why they cannot be driven directly from GPIO
+- L298N motor-driver inputs and outputs
+- ENA, ENB, and PWM motor control
+- IR line-sensor operation
+- Ultrasonic sensor operation and the required Echo voltage dividers
+- Breadboard basics
+- Batteries and robot power
+- How the components fit together
+
+**[Read the Electronics Guide](electronics/README.md)**
+
+---
+
 ## Hardware Provided
 
 Each team will receive:
@@ -36,6 +57,7 @@ See the [Electronics Guide](electronics/README.md) for an explanation of each co
 
 Resources cover areas such as:
 
+- **[Electronics Guide](electronics/README.md): the core participant guide to the Pico, sensors, motors, L298N, breadboard, power, GPIO, and PWM. Read this before wiring.**
 - Raspberry Pi Pico setup and usage
 - Electronic components used during the Makeathon
 - Motors and motor drivers
@@ -54,17 +76,17 @@ Resources cover areas such as:
 
 ## Getting Started
 
-Build and test one subsystem at a time. This order gives beginners a clear path without jumping straight to a complete robot program:
+Build and test one subsystem at a time. This is the recommended participant flow:
 
-1. [Install Thonny, connect the Pico, install MicroPython, and run the REPL test](guides/pico_setup.md), then learn how to [save and upload code](guides/uploading_code.md).
-2. Learn the difference between [GPIO numbers and physical pins](concepts/gpio.md).
-3. [Connect and calibrate both IR sensors](guides/ir_sensor_calibration.md), then run their isolated input test.
-4. Read about [motor direction](concepts/motor_direction.md), wire the [Pico to the L298N](wiring/pico_to_l298n.md), and test the left and right motors separately.
-5. Learn how [PWM controls the motor-enable command](concepts/pwm.md) and try the isolated PWM example in the [electronics guide](electronics/README.md#motor-speed-with-pwm).
-6. Wire and test [ultrasonic sensor #1, then sensor #2](wiring/pico_to_ultrasonic.md).
-7. Compare the assembled robot with the [final diagram and connection tables](wiring/full_system_wiring.md).
-8. Complete the [pre-power check](guides/pre_power_check.md).
-9. Read the [line-following concepts](concepts/line_following_basics.md), then begin developing and testing your team's own control logic.
+1. Read this README for the overall challenge and repository structure.
+2. Read the core [Electronics Guide](electronics/README.md) before wiring anything.
+3. [Install Thonny, connect the Pico, install MicroPython, and run the REPL test](guides/pico_setup.md), then learn how to [save and upload code](guides/uploading_code.md).
+4. Follow the subsystem wiring guides: start with the [IR sensors](wiring/pico_to_ir_sensors.md), then the [L298N motor driver](wiring/pico_to_l298n.md) and [motors](wiring/motors_to_l298n.md), followed by the [ultrasonic sensors](wiring/pico_to_ultrasonic.md).
+5. [Calibrate and test both IR sensors](guides/ir_sensor_calibration.md), then test each motor and ultrasonic sensor separately.
+6. Compare the assembled robot with the [final diagram and connection tables](wiring/full_system_wiring.md).
+7. Complete the [pre-power check](guides/pre_power_check.md) before final power-up.
+8. Use the [troubleshooting guide](troubleshooting/README.md) if something does not behave as expected.
+9. Read the [line-following concepts](concepts/line_following_basics.md), then develop and test your team's own control logic.
 
 USB and Thonny are used for programming and debugging. For untethered operation, the tested final program must be saved as `main.py` on the Pico so that MicroPython starts it when the robot receives onboard power.
 
@@ -130,6 +152,12 @@ For each component, the documentation explains:
 ## Repository Structure
 
 The repository documentation is organised as follows:
+
+- **[`electronics/`](electronics/README.md)** — Core electronics guide covering the Pico, sensors, motors, L298N, breadboard, power, GPIO, and PWM. Read this before wiring.
+- **[`wiring/`](wiring/)** — Connection instructions and the authoritative full-system wiring reference.
+- **[`concepts/`](concepts/)** — Focused explanations of GPIO, PWM, signals, distance measurement, and robot-control concepts.
+- **[`guides/`](guides/)** — Step-by-step setup, calibration, code-upload, and safety checks.
+- **[`troubleshooting/`](troubleshooting/README.md)** — Symptom-based checks when a subsystem does not work as expected.
 
 ```text
 Makeathon/

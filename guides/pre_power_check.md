@@ -2,6 +2,8 @@
 
 Complete every check before inserting batteries or applying USB power. Remove all power before correcting a failed check.
 
+If any power pin, voltage, common-ground connection, motor-driver control, or Echo divider is unfamiliar, review the [Electronics Guide](../electronics/README.md) before completing this checklist.
+
 ## Power
 
 - [ ] Battery positive connects to the L298N motor-supply positive terminal.

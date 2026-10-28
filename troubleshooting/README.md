@@ -2,6 +2,8 @@
 
 Switch off motor power before changing wiring. Work through one subsystem at a time, and ask a supervisor if a component becomes hot, smells unusual, or appears damaged.
 
+For the underlying explanation of Pico power pins, 3.3 V logic, sensors, voltage dividers, motors, the L298N, GPIO, and PWM, use the core [Electronics Guide](../electronics/README.md).
+
 | Symptom | Possible Cause | What to Check |
 |---|---|---|
 | Pico powers up but no `RPI-RP2` drive appears | BOOTSEL was not held while USB was connected, the cable is charge-only, or the USB port is unsuitable | Disconnect USB. Hold BOOTSEL while reconnecting with a known data-capable cable, then release it after connection. Try another USB port if necessary. |

@@ -506,6 +506,8 @@ Each sensor needs its own divider. Connect a 1 kΩ resistor from Echo to the Pic
 
 The divider equation is `Vout = Vin × R2 / (R1 + R2)`. With `Vin ≈ 5 V`, `R1 = 1 kΩ`, and `R2 = 2 kΩ`, the result is `Vout ≈ 5 × 2 / (1 + 2) ≈ 3.33 V`. Never share one divider between the sensors.
 
+![ECHO VD](../assets/diagrams/ULT_vd.png)
+
 > A resistor divider is suitable for reducing the HC-SR04 Echo **signal**. It must not be used as the Pico's main power supply.
 
 ### Example: HC-SR04 power and signals
