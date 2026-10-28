@@ -85,7 +85,7 @@ If no drive appears, disconnect the Pico and repeat the steps with a known data-
 
 *The `RPI-RP2` drive is the Pico's firmware-installation bootloader. It is not the normal place where Python programs are saved.*
 
-6. Download the current stable MicroPython `.uf2` build for the original **Raspberry Pi Pico / RP2040** from the [official MicroPython Pico download page](https://micropython.org/download/RPI_PICO/).
+6. Open the [official Raspberry Pi MicroPython guide](https://www.raspberrypi.com/documentation/microcontrollers/micropython.html) and download the MicroPython `.uf2` file for the original **Raspberry Pi Pico**.
 7. Check that the downloaded file ends in `.uf2` and is for the original Pico. Do not choose Pico W, Pico 2, Pico 2 W, or a preview/development build.
 
 ![MicroPython firmware choices with the standard Raspberry Pi Pico option highlighted](../assets/diagrams/MP_Install.png)
