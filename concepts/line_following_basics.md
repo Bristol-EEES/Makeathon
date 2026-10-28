@@ -2,7 +2,7 @@
 
 A line-following robot uses sensors to estimate the position of a line and adjusts its motors to stay near it. With two sensors, one is normally placed to the left and one to the right of the intended path.
 
-The IR sensors distinguish the track by measuring reflected infrared light. A dark line will typically reflect less infrared light than a light background, so each sensor's digital output changes when it crosses between them. Testing is still essential because the actual HIGH/LOW meaning depends on the supplied module, threshold adjustment, surface, mounting height, and lighting.
+The IR sensors distinguish the track by measuring reflected infrared light. A dark line will typically reflect less infrared light than a light background, so each sensor's digital output changes when it crosses between them. During calibration, determine the actual HIGH/LOW meaning for each sensor at its chosen threshold, mounting height, and event lighting.
 
 The controller runs a **feedback loop**:
 

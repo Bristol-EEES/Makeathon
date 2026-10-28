@@ -29,9 +29,11 @@ VCC is the 5 V power connection. TRIG is an **input to the HC-SR04**, driven dir
 
 ## Echo voltage dividers
 
-> **DIAGRAM PLACEHOLDER — HC-SR04 Echo Voltage Divider**
->
-> Show HC-SR04 ECHO passing through a 1 kΩ / 2 kΩ divider before reaching the Pico GPIO input.
+![HC-SR04 wiring with direct TRIG connection and a 1 kΩ / 2 kΩ Echo voltage divider](../assets/diagrams/ULT_VD.png)
+
+*HC-SR04 Echo voltage-divider wiring. The Echo signal passes through a 1 kΩ / 2 kΩ divider before reaching the Pico input. TRIG connects directly to a Pico GPIO. Each ultrasonic sensor requires its own divider.*
+
+The image is a generic divider example. In the final Makeathon wiring, sensor #1 uses GP10 for TRIG and GP11 for divided ECHO; sensor #2 uses GP12 for TRIG and GP13 for divided ECHO. The wiring tables above remain the authoritative GPIO reference.
 
 For **each** sensor:
 

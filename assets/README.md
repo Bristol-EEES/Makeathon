@@ -10,16 +10,12 @@ The diagrams in this repository include both technical reference images and the 
 | `diagrams/Run_script.png` | Organiser-created documentation screenshot. Shows Thonny's Run current script button for USB-connected testing; used in the uploading guide. |
 | `diagrams/Thonny_Save_Location.png` | Organiser-created documentation screenshot. Shows the computer-versus-RP2040-device save choice; used in the uploading guide. |
 | `diagrams/Thonny_Save_Main_Py.png` | Organiser-created documentation screenshot. Shows `main.py` being saved on the Pico/RP2040 filesystem; used in the uploading guide. |
-| `diagrams/Full_circuit.png` | Final Makeathon circuit diagram. Creator/owner and reuse terms to be confirmed. |
-| `diagrams/ULT_VD.png` | Draft Echo-divider close-up; not currently used because its labels are cropped and its 2.2 kΩ value conflicts with the confirmed 2 kΩ design. Creator/owner and reuse terms to be confirmed. |
-| `diagrams/Pico_GPIO.png` | Source/credit to be confirmed. |
-| `diagrams/L298N_Pinout.png` | Visible credit: Last Minute Engineers. Exact source URL and reuse terms to be confirmed. |
-| `diagrams/IR_Pin.webp` | Source/credit to be confirmed. |
-| `diagrams/ULT_Pins.png` | Visible credit: How To Mechatronics. Exact source page and reuse terms to be confirmed. |
-| `diagrams/pico_to_l298n.jpg` | Removed from participant-facing instructions because it does not show the final hardware or wiring. Original source, creator, and reuse terms to be confirmed before any future use. |
-| `diagrams/Breadboard.jpg` | Source/credit and reuse terms to be confirmed. |
-| `diagrams/Breadboard.jpeg` | Source/credit and reuse terms to be confirmed. |
-| `diagrams/Thonny.png` | Unused and misleading/outdated for this workflow because it contains a version-specific download label. Safe to remove later after maintainers confirm it is not needed elsewhere. |
-| `diagrams/MP_Install.png` | Still useful as a simple reminder to choose the original Pico firmware rather than Pico W/Pico 2 variants. Source/credit and reuse terms remain to be confirmed. |
-
-Maintainers should record the original source URL and applicable reuse terms for each externally sourced asset when they are confirmed.
+| `diagrams/pico_connected.png` | Documentation screenshot showing a successful Pico REPL connection; existing repository asset with provenance not recorded. |
+| `diagrams/Full_circuit.png` | Final Makeathon circuit diagram; existing repository asset with provenance not recorded. |
+| `diagrams/Pico_GPIO.png` | Pico GPIO reference; existing repository asset with provenance not recorded. |
+| `diagrams/L298N_Pinout.png` | L298N reference pinout. Visible credit: Last Minute Engineers. |
+| `diagrams/IR_Pin.webp` | IR-module reference image; existing repository asset with provenance not recorded. |
+| `diagrams/ULT_Pins.png` | HC-SR04 reference image. Visible credit: How To Mechatronics. |
+| `diagrams/ULT_VD.png` | HC-SR04 Echo-divider reference. Visible credit/watermark: TeachWithICT.com. Adapted/annotated for the Makeathon documentation with generic Pico labels and the confirmed 1 kΩ / 2 kΩ divider values. |
+| `diagrams/Breadboard.jpg` | Breadboard connectivity reference; existing repository asset with provenance not recorded. |
+| `diagrams/MP_Install.png` | Original-Pico firmware-selection reference; existing repository asset with provenance not recorded. |

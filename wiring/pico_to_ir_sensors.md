@@ -11,7 +11,7 @@ Each IR line sensor has VCC, GND, and OUT. Check the printed labels because phys
 
 Powering these sensors from the Pico's regulated 3.3 V output keeps their digital outputs in the Pico's 3.3 V logic domain. `3V3(OUT)` is a power output; OUT is the sensor's signal. Do not swap them.
 
-The Pico reads GP14 and GP15 as digital HIGH or LOW. The electrical connections are final, but teams must still calibrate both modules over the actual light background and dark line to discover their HIGH/LOW sense and suitable threshold. A dark line normally reflects less infrared light than the lighter background.
+The Pico reads GP14 and GP15 as digital HIGH or LOW. Calibrate both modules over the actual light background and dark line to determine their HIGH/LOW sense and set a suitable threshold. A dark line normally reflects less infrared light than the lighter background.
 
 Remove power before changing connections. All grounds must join the common GND rail.
 

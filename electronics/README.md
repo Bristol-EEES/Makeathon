@@ -55,7 +55,7 @@ MicroPython refers to the GPIO number rather than the physical header position. 
 
 #### `VSYS`
 
-`VSYS` is the Pico's main external system-power input. The standard Raspberry Pi Pico accepts approximately **1.8 V to 5.5 V on VSYS**; its onboard regulator then generates the internal 3.3 V rail. The current four-AA-cell pack is approximately 6 V nominal and fresh cells may be higher, so **do not connect that pack directly to VSYS**.
+`VSYS` is the Pico's main external system-power input. The standard Raspberry Pi Pico accepts approximately **1.8 V to 5.5 V on VSYS**; its onboard regulator then generates the internal 3.3 V rail. The supplied four-AA-cell pack is approximately 6 V nominal and fresh cells may be higher, so **do not connect that pack directly to VSYS**.
 
 For untethered operation, the L298N `5V` terminal supplies Pico `VSYS`. The nominal 6 V battery pack must not connect directly to `VSYS`.
 
@@ -65,11 +65,11 @@ For untethered operation, the L298N `5V` terminal supplies Pico `VSYS`. The nomi
 
 ### Supply voltage and signal voltage
 
-**Supply voltage** powers a component: examples include Pico `VSYS`, sensor `VCC`, and the L298N motor supply. **Logic or signal voltage** carries information: examples include Pico GPIO HIGH/LOW, IR `OUT`, ultrasonic `Trig`/`Echo`, and L298N IN1–IN4. They are not necessarily the same. A sensor can use 5 V power while one of its signals still needs conversion before it is safe for a 3.3 V Pico input.
+**Supply voltage** powers a component: examples include Pico `VSYS`, sensor `VCC`, and the L298N motor supply. **Logic or signal voltage** carries information: examples include Pico GPIO HIGH/LOW, IR `OUT`, ultrasonic `Trig`/`Echo`, and L298N IN1–IN4. They can have different voltage levels. A sensor can use 5 V power while one of its signals requires conversion before it is safe for a 3.3 V Pico input.
 
 #### ADC-capable pins
 
-An **ADC** (analogue-to-digital converter) measures a varying voltage. The currently shown IR module supplies a digital `OUT` signal, so normal use does not require an ADC. ADC would become relevant only if the final sensor had a confirmed analogue output.
+An **ADC** (analogue-to-digital converter) measures a varying voltage. The supplied IR modules use digital `OUT` signals, so the Makeathon wiring does not use an ADC for the line sensors.
 
 #### PWM-capable GPIO
 
@@ -123,7 +123,7 @@ The motor itself is not controlled directly by Pico code. The software changes c
 
 Connecting a DC motor directly to a Pico GPIO can damage the Pico. All motor examples in this guide therefore operate through the motor driver.
 
-> Exact motor model, operating voltage, current, and speed specifications are to be confirmed.
+Exact motor characteristics depend on the supplied unit and are not required for normal Makeathon operation. Use the documented L298N and battery architecture, then calibrate each motor's physical direction and useful PWM range during bring-up.
 
 See [motors to L298N](../wiring/motors_to_l298n.md) and [motor direction](../concepts/motor_direction.md).
 
@@ -139,7 +139,7 @@ It provides two motor channels. Common labels are:
 
 ![L298N motor controller module pinout](../assets/diagrams/L298N_Pinout.png)
 
-*Reference pinout for a common L298N module. The supplied module must still be checked because layouts, labels, and jumper arrangements can vary. The visible source credit in the diagram has been preserved.*
+*Reference pinout for an L298N module. Use the supplied module with the event wiring documented below, and read its printed terminal and jumper labels before connecting it. The visible source credit in the diagram has been preserved.*
 
 ### L298N Pins Used in the Makeathon
 
@@ -171,7 +171,7 @@ On many common L298N modules, a small removable jumper links each enable input t
 
 “100% enable” means that the driver channel is enabled for the whole PWM cycle. It does **not** guarantee that the motor reaches 100% of its advertised speed; battery voltage, L298N voltage loss, load, friction, and the motor itself still matter.
 
-Do not manually short ENA and ENB together or bridge them to an arbitrary power pin. Use only the module's intended enable jumper positions, after confirming that the supplied board matches the reference layout. Switch power off before fitting or removing a jumper.
+Do not manually short ENA and ENB together or bridge them to an arbitrary power pin. Use only the supplied module's labelled enable-jumper positions. Switch power off before fitting or removing a jumper.
 
 The **ENA jumper** enables Motor A and the **ENB jumper** enables Motor B. A separate jumper often labelled **5V-EN** or **regulator enable** controls the onboard 5 V regulator on common modules. It is a different circuit and must not be confused with either motor-enable jumper. Removing ENA/ENB for Pico PWM does not decide how the regulator jumper should be configured.
 
@@ -183,7 +183,7 @@ The final architecture uses the L298N `5V` terminal for Pico `VSYS` and both HC-
 
 
 
-The motor supply carries motor power, while the input pins carry logic/control signals. They serve different purposes. The Pico and motor controller must normally share a ground so their control signals have the same reference.
+The motor supply carries motor power, while the input pins carry logic/control signals. They serve different purposes. The Pico and motor controller share common ground so their control signals have the same reference.
 
 ### Motor A control table
 
@@ -203,7 +203,7 @@ IN1 and IN2 select the direction for Motor A. ENA enables the channel and can al
 - Direction A and Direction B are opposite rotations. Which one moves the robot physically forward depends on motor mounting and the order of the two motor wires.
 - Swapping a motor's two output wires swaps its Direction A and Direction B. Do this only with power off; never reverse the battery leads.
 
-When the common ENA jumper is fitted, ENA is normally held at `1`, so the first four rows apply. Removing that jumper allows a Pico PWM signal to vary how much of each cycle ENA spends at `1`. Confirm this behavior on the exact supplied module before wiring it.
+When the ENA jumper is fitted, it holds ENA enabled, so the first four rows apply. Removing that jumper allows the Pico PWM signal on GP4 to vary how much of each cycle ENA spends at `1`. Read the supplied module's printed labels before wiring it.
 
 Motor B works in the same way: IN3 and IN4 select its direction, while ENB enables the channel or accepts its PWM signal.
 
@@ -338,7 +338,7 @@ The two Echo inputs assume that each HC-SR04 has its own required 1 kΩ/2 kΩ di
 
 The L298N is an older design and loses some voltage as heat, so the motors receive less voltage than the battery provides. Follow the final terminal and jumper arrangement in the wiring guide rather than copying a different module layout from the internet.
 
-Motor RPM, stall current, startup current, and exact mechanical loading remain unspecified.
+Commercial motor RPM, stall-current, and gearbox figures are not needed for the event wiring. Calibrate each supplied motor's physical direction, reliable starting command, useful running PWM range, and left/right trim on the assembled robot.
 
 Wiring polarity matters: reversing a supply connection can damage hardware, while reversing one motor's output wires changes that motor's direction. See [Pico to L298N wiring](../wiring/pico_to_l298n.md).
 
@@ -350,7 +350,7 @@ This is the usual operating principle, not a guaranteed mapping. Surface materia
 
 ![IR sensor module pinout and components](../assets/diagrams/IR_Pin.webp)
 
-*Reference view of a common IR sensor module, showing the transmitter, receiver, adjustment control, indicator LEDs, and VCC/GND/OUT pins. Confirm that the supplied module matches before wiring it.*
+*Reference view of a 3-pin IR sensor module, showing the transmitter, receiver, adjustment control, indicator LEDs, and VCC/GND/OUT pins. Use the printed VCC, GND, and OUT labels on the supplied module because their physical order can vary.*
 
 The labelled parts work together as follows:
 
@@ -362,9 +362,9 @@ The labelled parts work together as follows:
 
 **VCC** and **GND** power the module, while **OUT** carries the digital result to a Pico input. The power LED indicates that the module is powered. The object-detect/output LED indicates the comparator's current detection state; its exact behaviour must be checked on the supplied module. Turning the potentiometer changes the switching threshold, not the amount of infrared light emitted.
 
-Many modules compare the received signal with a threshold and provide a digital HIGH or LOW output. Some include a small potentiometer for adjusting that threshold. The output sense, supply requirements, pin order, and whether a potentiometer is fitted depend on the exact module.
+The supplied modules compare the received signal with an adjustable threshold and provide a digital HIGH or LOW output. Use each module's potentiometer to set its threshold, and follow its printed VCC, GND, and OUT labels when wiring it.
 
-The supplied IR modules are powered from Pico `3V3(OUT)`. Their output sense still needs calibration: measure which state represents the dark line and which represents the lighter background.
+The supplied IR modules are powered from Pico `3V3(OUT)`. Determine each sensor's output sense during calibration by measuring which state represents the dark line and which represents the lighter background.
 
 ### IR Sensor Pins
 
@@ -506,8 +506,6 @@ Each sensor needs its own divider. Connect a 1 kΩ resistor from Echo to the Pic
 
 The divider equation is `Vout = Vin × R2 / (R1 + R2)`. With `Vin ≈ 5 V`, `R1 = 1 kΩ`, and `R2 = 2 kΩ`, the result is `Vout ≈ 5 × 2 / (1 + 2) ≈ 3.33 V`. Never share one divider between the sensors.
 
-![ECHO VD](../assets/diagrams/ULT_vd.png)
-
 > A resistor divider is suitable for reducing the HC-SR04 Echo **signal**. It must not be used as the Pico's main power supply.
 
 ### Example: HC-SR04 power and signals
@@ -589,7 +587,7 @@ Common mistakes include placing two wires in holes that are not connected, putti
 
 The holder connects four cells in **series**, so their voltages add. The nominal voltage of each cell depends on its chemistry, and the real voltage changes with charge and load. Four cells therefore do not always provide exactly the same operating voltage.
 
-The final source is the supplied four-AA pack, nominally 6 V. Its actual voltage still changes with cell condition and motor load.
+The robot uses the supplied four-AA pack at approximately 6 V nominal. Its actual voltage varies naturally with cell condition and motor load.
 
 Observe the `+` and `-` markings. The pack must feed the intended motor/power path, not a Pico GPIO pin. The motor controller and Pico control circuit need a common ground where required by the final design.
 
@@ -611,7 +609,7 @@ The battery pack does not require MicroPython code. It provides electrical power
 | HC-SR04 VCC | 5 V from L298N `5V` | — | Two standard HC-SR04-style sensors |
 | HC-SR04 Trig | — | Pico 3.3 V GPIO | GP10/GP12 |
 | Standard HC-SR04 Echo | — | Approx. 5 V | Reduce before Pico GPIO |
-| L298N motor supply | Approx. 6 V current system | — | From four-AA pack; actual value depends on cells and load |
+| L298N motor supply | Approx. 6 V event system | — | From four-AA pack; actual value depends on cells and load |
 | L298N control inputs | — | Pico 3.3 V control | GP2/3/4 and GP6/7/8 |
 | L298N `5V` terminal | 5 V rail | — | Supplies Pico `VSYS` and both HC-SR04 VCC pins |
 
@@ -622,7 +620,7 @@ The battery pack does not require MicroPython code. It provides electrical power
 - IR sensors: `Pico 3V3(OUT) -> both IR VCC pins`.
 - HC-SR04 sensors: `L298N 5V -> both HC-SR04 VCC pins`.
 
-All interacting signal circuits normally need a common ground linking Pico GND, L298N GND, sensor grounds, and battery negative/system ground as appropriate. Without this shared reference, one component cannot reliably interpret another's “3.3 V HIGH.” Remove all power before changing wiring.
+The event wiring uses a common ground linking Pico GND, L298N GND, both IR sensor grounds, both HC-SR04 grounds, and battery negative. Without this shared reference, one component cannot reliably interpret another's “3.3 V HIGH.” Remove all power before changing wiring.
 
 ## How the Components Work Together
 

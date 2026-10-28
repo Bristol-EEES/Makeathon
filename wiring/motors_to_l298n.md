@@ -2,7 +2,7 @@
 
 The L298N has two output channels. **Motor A is the left motor** and connects to `OUT1`/`OUT2`. **Motor B is the right motor** and connects to `OUT3`/`OUT4`.
 
-The [L298N reference diagram](../electronics/README.md#l298n-motor-controller) shows these common output labels. It is not a confirmed event wiring diagram, so the markings on the supplied module take priority.
+The [L298N reference diagram](../electronics/README.md#l298n-motor-controller) explains the component labels. For event wiring, use the connections on this page and the printed markings on the supplied module.
 
 The input pair for a channel selects the direction of current through its motor. Reversing the two output wires reverses that motor's physical rotation for the same control command.
 
