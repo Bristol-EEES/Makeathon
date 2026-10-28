@@ -138,6 +138,8 @@ You should see:
 Pico connected
 ```
 
+![Pico Connected](../assets/diagrams/pico_connected.png)
+
 This confirms that Thonny can send a command to MicroPython and receive its response. It does not test sensors or motors.
 
 If no prompt appears, press Thonny's Stop/Interrupt control, wait a moment, and check the interpreter and port again. Reconnect using a known data cable if necessary.
