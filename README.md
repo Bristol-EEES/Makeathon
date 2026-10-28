@@ -1,5 +1,9 @@
+<p align="center">
+  <img src="assets/diagrams/BEEES.png" alt="BEEES logo" width="180">
+</p>
 
-# BEEES Makeathon
+
+<h1 align="center">BEEES Makeathon</h1>
 
 Welcome to the official **BEEES Makeathon** repository.
 
