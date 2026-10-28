@@ -4,9 +4,9 @@ Switch off motor power before changing wiring. Work through one subsystem at a t
 
 | Symptom | Possible Cause | What to Check |
 |---|---|---|
-| Pico not detected by computer | Charge-only USB cable, wrong port, driver/editor issue, or firmware missing | Try a known data cable and another port; confirm the interpreter/device; use the [Pico setup guide](../guides/pico_setup.md) if firmware recovery is needed. |
+| Pico powers up but no `RPI-RP2` drive appears | BOOTSEL was not held while USB was connected, the cable is charge-only, or the USB port is unsuitable | Disconnect USB. Hold BOOTSEL while reconnecting with a known data-capable cable, then release it after connection. Try another USB port if necessary. |
 | Pico does not appear in Thonny | Wrong interpreter or port, charge-only USB cable, or missing firmware | Check the cable, select the Pico's MicroPython interpreter and USB/serial port, then reconnect. |
-| `RPI-RP2` appears but code will not run | The Pico is in BOOTSEL firmware mode rather than normal MicroPython mode | Install the correct firmware if needed, allow the board to reboot, then reconnect normally without holding BOOTSEL. |
+| `RPI-RP2` appears but Thonny cannot connect | The Pico is still in bootloader mode or MicroPython firmware is missing | Copy the current stable original-Pico MicroPython `.uf2` onto `RPI-RP2`, allow the board to reboot automatically, then select its Pico/RP2040 MicroPython interpreter and serial/COM port in Thonny. |
 | Code runs on the computer instead of the Pico | Desktop Python interpreter is selected | Select the MicroPython interpreter for the Raspberry Pi Pico/RP2040—not Local Python or Thonny's Python—and select the Pico's USB/serial or COM port. |
 | A program uses the wrong Pico pin | A physical header-pin number was used as a GPIO number | `Pin(15)` means GP15, not physical header pin 15. Use the Pico pinout and the GPIO and physical-pin columns in the [authoritative wiring table](../wiring/full_system_wiring.md). |
 | Thonny says the device is busy | A program is still running, or another application has locked the serial connection | Press Stop/Interrupt; close other serial tools; restart Thonny's interpreter and reconnect if necessary. |

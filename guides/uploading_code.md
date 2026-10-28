@@ -103,14 +103,14 @@ A simple check is to stop the program, close its editor tab, and use Thonny's de
 | Wrong interpreter selected | Select MicroPython for the exact Raspberry Pi Pico model, not desktop Python 3. |
 | Wrong serial or COM port | Choose the port that appears when the Pico is connected; disconnect/reconnect to identify it. |
 | Charge-only USB cable | Replace it with a cable known to transfer files or data. |
-| MicroPython is not installed | Use Thonny's MicroPython firmware installer or follow the BOOTSEL recovery in the setup guide. |
+| MicroPython is not installed | Follow the BOOTSEL + `RPI-RP2` + `.uf2` procedure in the [Pico setup guide](pico_setup.md). |
 | Pico keeps running old code | Press Stop/Interrupt, inspect files stored on the Pico, and check whether an old `main.py` starts automatically. |
 | Shell says the device is busy | Stop the running program, wait briefly, and restart the interpreter if needed. |
 | Connection was interrupted | Stop, reconnect the USB cable, reselect the Pico interpreter/port, and run again. |
 | `main.py` immediately enters an infinite loop | Press Stop/Interrupt soon after reconnecting; then rename, edit, or remove the faulty startup file. |
 | Another program owns the serial port | Close other editors, terminal programs, and serial monitors that may be connected to the Pico, then reconnect in Thonny. |
 
-For a difficult connection problem, disconnect the robot's other power sources, put the Pico into BOOTSEL mode, and reinstall the correct stable MicroPython firmware for the exact board model. This replaces firmware, so use it as a recovery step rather than repeating it for ordinary code edits.
+For firmware recovery, disconnect the robot's other power sources and repeat the BOOTSEL + `RPI-RP2` + `.uf2` procedure in the [Pico setup guide](pico_setup.md). Use the current stable build for the original Raspberry Pi Pico, not firmware for a different Pico model. Firmware recovery is not required for ordinary code edits.
 
 Do not place `.py` programs on the `RPI-RP2` drive. That BOOTSEL drive accepts `.uf2` firmware; programs belong on the MicroPython device filesystem through Thonny.
 

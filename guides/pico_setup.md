@@ -67,54 +67,45 @@ If MicroPython is already installed, the Pico may appear as a serial device and 
 4. Release BOOTSEL after the board is connected.
 5. The Pico should appear as a USB storage device, typically named `RPI-RP2`.
 
-![Windows showing the Raspberry Pi Pico as the RPI-RP2 removable drive in BOOTSEL mode](../assets/diagrams/Pico_RPI_RP2_Drive.png)
-
-*Pico in BOOTSEL mode. The board appears as the `RPI-RP2` removable drive. This drive is used only for installing `.uf2` firmware; it is not the Pico's normal MicroPython filesystem.*
-
 If no drive appears, disconnect the Pico and repeat the steps with a known data-capable cable.
 
 > **Board model for this Makeathon:** The supplied board is the standard, original **Raspberry Pi Pico**. When choosing an interpreter or UF2 firmware, select **Raspberry Pi Pico**—not Pico W, Pico 2, or Pico 2 W.
 
 ## 4. Installing MicroPython on the Pico
 
-**MicroPython** is a version of Python designed to run directly on microcontrollers. The Pico needs MicroPython firmware before it can run the Python programs used in this repository.
+**MicroPython** is the firmware that allows the Raspberry Pi Pico to run Python programs. For the Makeathon, install it using the Pico's BOOTSEL / `RPI-RP2` firmware mode.
 
-### Method A: install with Thonny
+1. Disconnect the Pico from USB if it is currently connected.
+2. Press and hold the Pico's **BOOTSEL** button.
+3. While holding BOOTSEL, connect the Pico to the computer with a USB data cable.
+4. Release BOOTSEL after the board is connected.
+5. Confirm that the Pico appears as a removable drive named `RPI-RP2`.
 
-This is usually the easiest method.
+![Windows showing the Raspberry Pi Pico as the RPI-RP2 removable drive in BOOTSEL mode](../assets/diagrams/Pico_RPI_RP2_Drive.png)
 
-1. Connect the Pico. If Thonny cannot find usable firmware, put the Pico into BOOTSEL mode as described above.
-2. Open Thonny.
-3. Find the interpreter or backend settings. Depending on the Thonny version, this may be available from an interpreter selector near the bottom-right of the window, from the **Run** menu, or in Thonny's settings/options.
-4. Choose the MicroPython interpreter for the **Raspberry Pi Pico** or **RP2040**. Thonny versions use slightly different wording; select the option that targets the original Pico rather than local/desktop Python.
-5. If MicroPython is not installed, use Thonny's firmware installation command. It may use wording such as “Install MicroPython”.
-6. If asked for the board model, select **Raspberry Pi Pico**. Do not select Pico W, Pico 2, or Pico 2 W because those are different boards and may use different firmware.
-7. Choose the recommended stable MicroPython release rather than a preview or development build.
-8. Start the installation and wait until Thonny reports that it is complete. Do not unplug the board during installation.
+*The `RPI-RP2` drive is the Pico's firmware-installation bootloader. It is not the normal place where Python programs are saved.*
 
-Menu names can change between Thonny versions. The important goal is to open the MicroPython interpreter/backend configuration, select the correct Pico model, and use its firmware installer.
-
-### Method B: install a UF2 file manually
-
-Use this fallback if Thonny's installer is unavailable or a supervisor asks you to perform a manual recovery.
-
-1. Put the Pico into BOOTSEL mode. The `RPI-RP2` storage device should appear.
-2. Download the stable MicroPython `.uf2` firmware specifically labelled **Raspberry Pi Pico** from the [official Raspberry Pi MicroPython page](https://www.raspberrypi.com/documentation/microcontrollers/micropython.html) or the [official MicroPython downloads](https://micropython.org/download/).
-3. Before copying it, check again that the download says **Pico**, not Pico W, Pico 2, or Pico 2 W.
+6. Download the current stable MicroPython `.uf2` build for the original **Raspberry Pi Pico / RP2040** from the [official MicroPython Pico download page](https://micropython.org/download/RPI_PICO/).
+7. Check that the downloaded file ends in `.uf2` and is for the original Pico. Do not choose Pico W, Pico 2, Pico 2 W, or a preview/development build.
 
 ![MicroPython firmware choices with the standard Raspberry Pi Pico option highlighted](../assets/diagrams/MP_Install.png)
 
-4. Copy or drag the `.uf2` file onto `RPI-RP2`, as you would copy a file to a USB drive.
+8. Copy or drag the `.uf2` file onto `RPI-RP2`, as you would copy a file to a USB drive.
 
 ![Copying the Raspberry Pi Pico MicroPython UF2 firmware file onto the RPI-RP2 drive](../assets/diagrams/Pico_UF2_Copy.png)
 
 *Copy the `.uf2` firmware for the original Raspberry Pi Pico onto `RPI-RP2`. The filename shown is an example; stable firmware filenames change as new releases are published.*
 
-5. Wait. The storage device should disappear and the Pico should reboot automatically into MicroPython.
+9. Wait for the copy to finish. The `RPI-RP2` drive should disappear and the Pico should reboot automatically into MicroPython. This is expected and normally means the firmware is installed.
+10. Open Thonny after the Pico has rebooted.
+11. Select the MicroPython interpreter for the Raspberry Pi Pico/RP2040 and the serial/COM port belonging to the connected Pico, as described in the next section.
 
-The disappearing drive is expected after a successful firmware copy. It normally means that the Pico has left BOOTSEL mode and rebooted into MicroPython.
+### `.uf2` is firmware; `.py` is your program
 
-> **Do not copy ordinary `.py` files to `RPI-RP2`.** The `RPI-RP2` drive is the bootloader/firmware interface. Python programs are saved later to the Pico's MicroPython filesystem through Thonny.
+- A `.uf2` file contains MicroPython firmware. Copy it to `RPI-RP2` while the Pico is in BOOTSEL mode.
+- Ordinary `.py` programs do **not** go onto `RPI-RP2`.
+- Save `.py` programs to the Pico's MicroPython filesystem through Thonny after the firmware is installed.
+- `main.py` is an ordinary Python file with a special filename that MicroPython runs automatically at startup.
 
 ## 5. Selecting the Pico Interpreter in Thonny
 

@@ -23,6 +23,8 @@ A package written for desktop Python may not be available in MicroPython. Conver
 
 MicroPython provides a readable way to experiment with hardware without compiling a program after every edit. It is well suited to learning because commands can be tried interactively in the REPL and programs can be saved directly on the board.
 
+For the supported Makeathon workflow, the MicroPython `.uf2` firmware is installed through BOOTSEL and `RPI-RP2`. Thonny then communicates with MicroPython already running on the Pico; it is used for the REPL, programming, debugging, and saving `.py` files.
+
 ## Hardware modules
 
 MicroPython groups related features into **modules**. The `machine` module provides interfaces to microcontroller hardware. Importing one of its classes looks like this:
