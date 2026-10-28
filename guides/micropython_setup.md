@@ -62,10 +62,22 @@ The Pico has a small filesystem used by MicroPython. A file saved there remains 
 
 Keep computer copies of important work. The Pico's filesystem is convenient for running code, but it should not be the only copy of a project.
 
+Code sent by Thonny for a test run still executes on the Pico when its MicroPython interpreter is selected, but that test does not necessarily create a saved file on the Pico. Saving through Thonny is a separate step.
+
+| File type | Purpose | Where it goes | When it is used |
+|---|---|---|---|
+| `.uf2` | Installs or recovers MicroPython firmware | `RPI-RP2` BOOTSEL drive | Normally only during firmware installation or recovery |
+| Ordinary `.py` file | Stores a program or hardware test | Pico MicroPython filesystem, saved through Thonny | During normal development |
+| `main.py` | A normal Python program with the special startup filename | Pico MicroPython filesystem, saved through Thonny | Runs automatically when MicroPython boots |
+
+Never copy ordinary `.py` programs to `RPI-RP2`. That removable drive is the Pico bootloader interface, not the MicroPython program filesystem.
+
 ## `main.py`
 
 When MicroPython starts, a file named `main.py` on the Pico normally runs automatically. This makes it useful for a tested final program that should start when the robot is powered.
 
 During experiments, use descriptive filenames and run them manually. Only create `main.py` when automatic startup is intended, because an error or infinite loop in it will run again after every restart.
+
+For the complete progression from USB-connected testing to untethered startup, see [uploading and saving code](uploading_code.md).
 
 Next: [uploading and saving code](uploading_code.md) · [Pico and Thonny setup](pico_setup.md)

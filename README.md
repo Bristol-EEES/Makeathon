@@ -56,7 +56,7 @@ Resources cover areas such as:
 
 Build and test one subsystem at a time. This order gives beginners a clear path without jumping straight to a complete robot program:
 
-1. [Install Thonny, connect the Pico, install MicroPython, and run the REPL test](guides/pico_setup.md).
+1. [Install Thonny, connect the Pico, install MicroPython, and run the REPL test](guides/pico_setup.md), then learn how to [save and upload code](guides/uploading_code.md).
 2. Learn the difference between [GPIO numbers and physical pins](concepts/gpio.md).
 3. [Connect and calibrate both IR sensors](guides/ir_sensor_calibration.md), then run their isolated input test.
 4. Read about [motor direction](concepts/motor_direction.md), wire the [Pico to the L298N](wiring/pico_to_l298n.md), and test the left and right motors separately.
@@ -65,6 +65,8 @@ Build and test one subsystem at a time. This order gives beginners a clear path 
 7. Compare the assembled robot with the [final diagram and connection tables](wiring/full_system_wiring.md).
 8. Complete the [pre-power check](guides/pre_power_check.md).
 9. Read the [line-following concepts](concepts/line_following_basics.md), then begin developing and testing your team's own control logic.
+
+USB and Thonny are used for programming and debugging. For untethered operation, the tested final program must be saved as `main.py` on the Pico so that MicroPython starts it when the robot receives onboard power.
 
 You do **not** need to have built a line-following robot before the event.
 
