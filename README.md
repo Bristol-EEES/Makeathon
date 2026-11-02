@@ -1,15 +1,12 @@
-<table align="center">
-  <tr>
-    <td align="center" valign="middle">
-      <img src="assets/diagrams/BEEES.png" alt="BEEES logo" height="180">
-    </td>
-    <td width="1"></td>
-    <td align="center" valign="middle">
-      <img src="assets/diagrams/MechSoc.png" alt="MechSoc logo" height="180">
-    </td>
-  </tr>
-</table>
-
+<p align="center">
+  <img src="assets/diagrams/BEEES.png"
+       alt="BEEES logo"
+       height="180">
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/diagrams/MechSoc.png"
+       alt="MechSoc logo"
+       height="180">
+</p>
 
 <h1 align="center">BEEES x MechSoc Makeathon</h1>
 
