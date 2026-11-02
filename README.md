@@ -1,11 +1,21 @@
+<table align="center">
+  <tr>
+    <td align="center" valign="middle">
+      <img src="assets/diagrams/BEEES.png" alt="BEEES logo" height="180">
+    </td>
+    <td width="1"></td>
+    <td align="center" valign="middle">
+      <img src="assets/diagrams/MechSoc.png" alt="MechSoc logo" height="180">
+    </td>
+  </tr>
+</table>
+
+
+<h1 align="center">BEEES x MechSoc Makeathon</h1>
+
 <p align="center">
-  <img src="assets/diagrams/BEEES.png" alt="BEEES logo" width="180">
+  Welcome to the official <strong>BEEES x MechSoc Makeathon</strong> repository.
 </p>
-
-
-<h1 align="center">BEEES Makeathon</h1>
-
-Welcome to the official **BEEES Makeathon** repository.
 
 This repository contains electronics documentation, setup guides, technical explanations, wiring references, and other resources designed to help participants understand the hardware used during the Makeathon.
 
